@@ -6,7 +6,7 @@ import router from './server.js'
 dotenv.config()
 
 const app = express()
-const PORT = process.env.PORT || 8000
+const PORT = process.env.PORT || 3000
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
