@@ -23,9 +23,8 @@ const dataSchema = z.object({
 
 const dataGetSchema = z.object({
     query: z.object({
-        machineId: z.string({
-            required_error: 'machineId is required',
-        }),
+        machineId: z.optional(z.string()),
+        limit: z.optional(z.number()),
     }),
 })
 

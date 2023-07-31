@@ -1,38 +1,36 @@
 import { Router, Request, Response } from 'express'
 
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient, electric } from '@prisma/client'
 import { dataGetSchema, dataSchema, validate } from './dataschema.js'
 const prisma = new PrismaClient()
 
 const router = Router()
 
-// GET /api/electric
-router.get('/electric', async (req: Request, res: Response) => {
-    const data = await prisma.electric.findMany({
-        orderBy: {
-            serverTime: 'asc',
-        },
-        take: 10,
-    })
-
-    return res.json(data).status(200)
-})
-
-// GET /api/electric?MachineId=xxx?limit=10
+// GET /api/electric?machineId=1&limit=10
 router.get(
     '/electric',
     validate(dataGetSchema),
     async (req: Request, res: Response) => {
-        const { machineId } = req.query
-        const data = await prisma.electric.findMany({
-            where: {
-                machineId: machineId as string,
-            },
+        const { machineId, limit } = req.query
+
+        const queryOptions = {
+            take: limit === undefined ? 10 : Number(limit),
             orderBy: {
-                serverTime: 'asc',
+                serverTime: 'desc',
             },
-            take: 10,
-        })
+        } as any
+
+        let data
+        if (machineId === undefined) {
+            data = await prisma.electric.findMany(...queryOptions)
+        } else {
+            data = await prisma.electric.findMany({
+                ...queryOptions,
+                where: {
+                    machineId: machineId as string,
+                },
+            })
+        }
 
         return res.json(data).status(200)
     }
@@ -43,21 +41,20 @@ router.post(
     '/electric',
     validate(dataSchema),
     async (req: Request, res: Response) => {
-        let serverDate: Date = new Date()
         const { machineId, cilentTime, voltage, current, power } = req.body
 
         const data = await prisma.electric.create({
             data: {
                 machineId: machineId,
-                clientTime: cilentTime,
-                serverTime: serverDate,
+                clientTime: new Date(),
+                serverTime: new Date(),
                 voltage: voltage,
                 current: current,
                 power: power,
             },
         })
 
-        console.log(serverDate, req.body, data)
+        console.log(new Date(), req.body, data)
         return res.json({ ...req.body })
     }
 )
