@@ -1,5 +1,6 @@
-# Sunrise collector api
+# Sunray Collect Api
 
-Part of my friends
-Handle 1.2m request for 7 days
-Plan to host on digitalOcean droplet
+- use for my friend project.
+- hope is can handle 1.2M request.
+- for 7 days maybe it work?
+- nah
