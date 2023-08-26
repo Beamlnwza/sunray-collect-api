@@ -41,7 +41,7 @@ router.post(
     '/electric',
     validate(dataSchema),
     async (req: Request, res: Response) => {
-        const { machineId, cilentTime, voltage, current, power } = req.body
+        const { machineId, cilentTime, voltage, current, ampere } = req.body
 
         const serverTime = new Date()
 
@@ -53,7 +53,7 @@ router.post(
                     serverTime: serverTime,
                     voltage: parseInt(voltage),
                     current: parseInt(current),
-                    power: parseInt(power),
+                    ampere: parseInt(ampere),
                 },
             })
 

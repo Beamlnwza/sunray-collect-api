@@ -14,7 +14,7 @@ model electric {
   serverTime DateTime
   voltage    Float
   current    Float
-  power      Float
+  ampere     Float
 
   @@index([machineId, clientTime], name: "machineId_clientTime")
 }
