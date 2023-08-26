@@ -12,7 +12,11 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
 app.get('/', (req, res) => {
-    res.send('welcome kub')
+    res.send('welcome kub').status(200)
+})
+
+app.post('/', (req, res) => {
+    res.json(JSON.stringify(req.body)).status(200)
 })
 
 app.use('/api', router)
