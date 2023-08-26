@@ -9,13 +9,13 @@ const dataSchema = z.object({
         cilentTime: z.string({
             required_error: 'cilentTime is required',
         }),
-        voltage: z.number({
+        voltage: z.string({
             required_error: 'volatage is required',
         }),
-        current: z.number({
+        current: z.string({
             required_error: 'current is required',
         }),
-        power: z.number({
+        power: z.string({
             required_error: 'power is required',
         }),
     }),

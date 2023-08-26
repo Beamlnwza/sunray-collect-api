@@ -43,19 +43,21 @@ router.post(
     async (req: Request, res: Response) => {
         const { machineId, cilentTime, voltage, current, power } = req.body
 
+        const serverTime = new Date()
+
         try {
             const data = await prisma.electric.create({
                 data: {
                     machineId: machineId,
                     clientTime: new Date(cilentTime),
-                    serverTime: new Date(),
-                    voltage: voltage,
-                    current: current,
-                    power: power,
+                    serverTime: serverTime,
+                    voltage: parseInt(voltage),
+                    current: parseInt(current),
+                    power: parseInt(power),
                 },
             })
 
-            console.log(new Date(), req.body, data)
+            console.log(serverTime, req.body, data)
             return res.json(data).status(200)
         } catch (error) {
             console.log(new Date(), req.body, error)
