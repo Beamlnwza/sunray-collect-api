@@ -47,8 +47,8 @@ router.post(
             const data = await prisma.electric.create({
                 data: {
                     machineId: machineId,
-                    clientTime: new Date(),
-                    serverTime: new Date(cilentTime),
+                    clientTime: new Date(cilentTime),
+                    serverTime: new Date(),
                     voltage: voltage,
                     current: current,
                     power: power,
