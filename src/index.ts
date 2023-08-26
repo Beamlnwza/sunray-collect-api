@@ -12,7 +12,9 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
 app.get('/', (req, res) => {
-    res.send('Hello World')
+    res.send('welcome kub')
+    res.send('contact beam for more information')
+    res.send('supawitmarayat@gmail.com')
 })
 
 app.use('/api', router)
